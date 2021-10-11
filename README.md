@@ -1,2 +1,2 @@
-# poc-pi-univesp
+# pi-univesp
 Projeto Integrador Univesp
