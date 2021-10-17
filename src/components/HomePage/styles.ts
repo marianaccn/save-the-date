@@ -7,28 +7,37 @@ export const Container = styled.header`
 `;
 
 export const Content = styled.div`
-  max-width: 1128px;
-  padding-top: 60%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
-  display: flex;
-  align-items: flex-end;
-  flex-direction: column;
+  max-width: 1128px;
+  padding-top: 55%;
 `;
 
-export const MenuLogin = styled.div`
-  max-width: 1128px;
-  margin: 42% auto 0;
+export const HomeMenu = styled.div`
   display: flex;
-  align-items: center;
   flex-direction: column;
-  justify-content: space-between;
-`;
-
-export const MenuBtn = styled.div`
-  max-width: 1128px;
   height: 160px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
   justify-content: space-between;
+  margin-top: 40%;
+  max-width: 1128px;
+`;
+
+export const MenuBtn = styled.button`
+  background-color: var(--white);
+  border-radius: 10px;
+  border: none;
+  color: var(--graphite-light);
+  height: 30px;
+  opacity: 0.75;
+  width: 228px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+
+  transition: filter 0.2s;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
 `;
