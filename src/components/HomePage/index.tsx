@@ -1,7 +1,16 @@
 import { LogoLight } from '../Logo';
 import { Container, Content, HomeMenu, MenuBtn } from './styles';
+// import { useHistory } from 'react-router-dom';
 
 export function HomePage() {
+  // function HomeButton() {
+  //   let history = useHistory();
+
+  //   const  handleClick() {
+  //     history.push('/registrationPage');
+  //   }
+  // }
+
   return (
     <Container>
       <Content>
