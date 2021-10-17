@@ -5,6 +5,9 @@ import {
   Header,
   Title,
   Registration,
+  ConcludedButton,
+  Footer,
+  LoginButton,
 } from './styles';
 import ProfileLight from '../../assets/profileLight.svg';
 
@@ -23,13 +26,25 @@ export function LoginPage() {
           </Title>
         </Header>
         <MenuLogin>
-          <Registration type="text" value="Nome completo"></Registration>
-          <Registration type="text" value="E-mail"></Registration>
-          <Registration type="text" value="Data de nascimento"></Registration>
-          <Registration type="text" value="Telefone"></Registration>
-          <Registration type="text" value="Senha"></Registration>
-          <Registration type="text" value="Confirme sua senha"></Registration>
+          <Registration type="text" placeholder="Nome completo"></Registration>
+          <Registration type="text" placeholder="E-mail"></Registration>
+          <Registration
+            type="text"
+            placeholder="Data de nascimento"
+          ></Registration>
+          <Registration type="text" placeholder="Telefone"></Registration>
+          <Registration type="text" placeholder="Senha"></Registration>
+          <Registration
+            type="text"
+            placeholder="Confirme sua senha"
+          ></Registration>
         </MenuLogin>
+        <Footer>
+          <ConcludedButton type="button">Concluído</ConcludedButton>
+          <LoginButton type="button">
+            Já possui uma conta? Faça o login
+          </LoginButton>
+        </Footer>
       </Content>
     </Container>
   );
