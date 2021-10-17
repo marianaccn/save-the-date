@@ -1,10 +1,10 @@
-import { HomePage } from './components/HomePage';
 import { GlobalStyle } from './styles/global';
+import { Routes } from './routes';
 
 export function App() {
   return (
     <>
-      <HomePage />
+      <Routes />
       <GlobalStyle />
     </>
   );
