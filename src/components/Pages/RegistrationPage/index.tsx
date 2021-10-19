@@ -9,9 +9,12 @@ import {
   LoginButton,
   InputForm,
 } from './styles';
-import ProfileLight from '../../assets/profileLight.svg';
+import ProfileLight from '../../../assets/profileLight.svg';
+import { useHistory } from 'react-router-dom';
 
 export function RegistrationPage() {
+  const history = useHistory();
+
   return (
     <Container>
       <Content>
@@ -35,7 +38,7 @@ export function RegistrationPage() {
         </MenuLogin>
         <Footer>
           <ConcludedButton type="button">Concluído</ConcludedButton>
-          <LoginButton type="button">
+          <LoginButton type="button" onClick={() => history.push('/login')}>
             Já possui uma conta? Faça o login
           </LoginButton>
         </Footer>
