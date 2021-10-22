@@ -16,7 +16,7 @@ import '@ionic/react/css/display.css';
 import { GlobalStyle } from './styles/global';
 // import { Routes } from './routes';
 import '@ionic/react/css/core.css';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonContent, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Route } from 'react-router';
 import { HomePage } from './components/Pages/HomePage';
@@ -28,25 +28,28 @@ import { RegistrationPage } from './components/Pages/RegistrationPage';
 export function App() {
   return (
     <IonApp>
-      <IonReactRouter>
-        <IonRouterOutlet>
-          <Route exact path="/registrationPage">
-            <RegistrationPage />
-          </Route>
-          <Route exact path="/profilePage">
-            <ProfilePage />
-          </Route>
-          <Route exact path="/homePage">
-            <HomePage />
-          </Route>
-          <Route exact path="/login">
-            <LoginPage />
-          </Route>
-          <Route exact path="/landingPage">
-            <LandingPage />
-          </Route>
-        </IonRouterOutlet>
-      </IonReactRouter>
+      <IonContent>
+        <IonReactRouter>
+          <IonRouterOutlet>
+            <Route exact path="/registrationPage">
+              <RegistrationPage />
+            </Route>
+            <Route exact path="/profilePage">
+              <ProfilePage />
+            </Route>
+            <Route exact path="/homePage">
+              <HomePage />
+            </Route>
+            <Route exact path="/login">
+              <LoginPage />
+            </Route>
+            <Route exact path="/landingPage">
+              <LandingPage />
+            </Route>
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </IonContent>
+
       <GlobalStyle />
     </IonApp>
   );
