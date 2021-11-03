@@ -6,6 +6,8 @@ import {
   ContainerElements,
   Footer,
   PreviousButton,
+  DivEvento,
+  ShareButton,
 } from './styles';
 import { LogoBlue } from '../../LogoBlue';
 import { useHistory } from 'react-router';
@@ -29,7 +31,16 @@ export function MyEventsPage() {
             <ContainerEvents>
               <ContainerElements>
                 <CalendarIcon />
-                <ShareIcon />
+                <DivEvento>
+                  <h4>Happy Hour</h4>
+                  <p>02/12/2021 ás 10h</p>
+                </DivEvento>
+                <ShareButton
+                  type="button"
+                  onClick={() => history.push('/sharePage')}
+                >
+                  <ShareIcon />
+                </ShareButton>
               </ContainerElements>
             </ContainerEvents>
           </ContainerMyEvents>

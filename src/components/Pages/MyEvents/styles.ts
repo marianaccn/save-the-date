@@ -48,29 +48,41 @@ export const ContainerEvents = styled.div`
 `;
 
 export const ContainerElements = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: row;
   width: 100%;
+  justify-content: space-between;
 `;
 
-export const Input = styled.input`
+export const DivEvento = styled.div`
   border-radius: 5px;
-  border: 1px solid var(--gray);
-  color: var(--black);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 400;
-  height: 25px;
-  padding-left: 12px;
-  width: 293px;
-  margin-right: 3%;
+  border: 1px solid var(--graphite);
+  display: flex;
+  flex-direction: column;
+  height: 75px;
+  justify-content: flex-start;
+  padding: 0 15px 15px 26px;
+  width: 243px;
 
-  &placeholder {
+  h4 {
     color: var(--black);
     font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  p {
+    color: var(--black);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
     font-weight: 400;
   }
+`;
+
+export const ShareButton = styled.button`
+  background-color: var(--white);
+  border: none;
 `;
 
 export const Footer = styled.div`
