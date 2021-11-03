@@ -7,16 +7,15 @@ import {
   Footer,
   PreviousButton,
   DivEvento,
-  ShareButton,
-  ContainerButton,
-  CreateButton,
+  InputContainer,
+  Input,
 } from './styles';
 import { LogoBlue } from '../../LogoBlue';
 import { useHistory } from 'react-router';
 import { PreviousBlack } from '../../PreviousBlack';
 import { IonContent } from '@ionic/react';
 import { CalendarIcon } from '../../CalendarIcon';
-import { ShareIcon } from '../../ShareIcon';
+import { EditItemBlack } from '../../EditItemBlack';
 
 export function DetailsEventPage() {
   const history = useHistory();
@@ -33,28 +32,38 @@ export function DetailsEventPage() {
             <ContainerEvents>
               <ContainerElements>
                 <CalendarIcon />
-                <DivEvento
-                  type="button"
-                  onClick={() => history.push('/sharePage')}
-                >
-                  <h4>Happy Hour</h4>
-                  <p>02/12/2021 ás 10h</p>
+                <DivEvento>
+                  <h3>Happy Hour</h3>
+                  <InputContainer>
+                    <Input
+                      type="text"
+                      placeholder="Mariana Cavalcante"
+                      disabled
+                    />
+                    <EditItemBlack />
+                  </InputContainer>
+                  <InputContainer>
+                    <Input
+                      type="text"
+                      placeholder="Rua Aparecida, 299 - Centro"
+                      disabled
+                    />
+                    <EditItemBlack />
+                  </InputContainer>
+                  <InputContainer>
+                    <Input type="text" placeholder="Sorocaba - SP" disabled />
+                    <EditItemBlack />
+                  </InputContainer>
+                  <InputContainer>
+                    <Input type="text" placeholder="02/12/2021" disabled />
+                    <EditItemBlack />
+                  </InputContainer>
+                  <InputContainer>
+                    <Input type="text" placeholder="10:00 - 15:00" disabled />
+                    <EditItemBlack />
+                  </InputContainer>
                 </DivEvento>
-                <ShareButton
-                  type="button"
-                  onClick={() => history.push('/sharePage')}
-                >
-                  <ShareIcon />
-                </ShareButton>
               </ContainerElements>
-              <ContainerButton>
-                <CreateButton
-                  type="button"
-                  onClick={() => history.push('/homePage')}
-                >
-                  Criar evento
-                </CreateButton>
-              </ContainerButton>
             </ContainerEvents>
           </ContainerMyEvents>
         </Content>
