@@ -18,7 +18,7 @@ import { IonContent } from '@ionic/react';
 import { CalendarIcon } from '../../CalendarIcon';
 import { ShareIcon } from '../../ShareIcon';
 
-export function MyEventsPage() {
+export function CreateEventPage() {
   const history = useHistory();
 
   return (
@@ -50,7 +50,7 @@ export function MyEventsPage() {
               <ContainerButton>
                 <CreateButton
                   type="button"
-                  onClick={() => history.push('/createEventPage')}
+                  onClick={() => history.push('/homePage')}
                 >
                   Criar evento
                 </CreateButton>
