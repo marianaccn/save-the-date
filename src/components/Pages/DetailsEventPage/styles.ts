@@ -4,7 +4,6 @@ export const Container = styled.header`
   background: var(--white);
   display: flex;
   flex-direction: column;
-  height: 100vh;
 `;
 
 export const Content = styled.div`
@@ -20,7 +19,7 @@ export const ContainerMyEvents = styled.div`
   background: var(--white);
   display: flex;
   flex-direction: column;
-  height: 57vh;
+  height: 80vh;
   margin: 69.89px 57px 64px 30px;
   width: 100%;
 
@@ -98,11 +97,57 @@ export const Input = styled.input`
   }
 `;
 
+export const ItemsContainer = styled.div`
+  margin: 28px 0 8px;
+
+  .inputs-container {
+    display: flex;
+    flex: row;
+  }
+`;
+
+export const ItemNameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+
+  h4 {
+    color: var(--black);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    margin-bottom: 25px;
+  }
+`;
+
+export const InputItemsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const InputItem = styled.input`
+  border: none;
+  border-bottom: 1px solid var(--blue);
+  color: var(--black);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  margin: 0 5px 11px 0;
+  width: 95px;
+
+  ::placeholder {
+    color: var(--black);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+  }
+`;
+
 export const Footer = styled.div`
   display: flex;
-  height: 5vh;
   justify-content: flex-start;
-  margin: 0 5%;
+  align-items: flex-end;
+  margin: 34px 10px 5px 15px;
   padding-bottom: 10px;
   width: 100%;
 `;
