@@ -120,7 +120,7 @@ export function DetailsEventPage() {
           <Footer>
             <PreviousButton
               type="button"
-              onClick={() => history.push('/homePage')}
+              onClick={() => history.push('/myEventsPage')}
             >
               <PreviousBlack />
             </PreviousButton>
