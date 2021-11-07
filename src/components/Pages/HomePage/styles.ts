@@ -56,4 +56,10 @@ export const MenuBtn = styled.button`
   &:hover {
     filter: brightness(0.9);
   }
+
+  @media (min-width: 700px) {
+    Content {
+      padding-top: 124px;
+    }
+  }
 `;
