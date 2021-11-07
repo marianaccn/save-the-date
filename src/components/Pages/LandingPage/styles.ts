@@ -95,4 +95,16 @@ export const ResetPassword = styled.button`
   color: white;
   background-color: var(--blue);
   border: none;
+
+  @media (min-width: 700px) {
+    font-size: 14px;
+  }
+
+  @media (min-width: 1500px) {
+    font-size: 15px;
+  }
+
+  @media (min-width: 1800px) {
+    font-size: 18px;
+  }
 `;
