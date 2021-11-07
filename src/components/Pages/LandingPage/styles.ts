@@ -22,7 +22,7 @@ export const Content = styled.div`
     padding-top: 184px;
   }
 
-  @media (min-width: 2000px) {
+  @media (min-width: 1800px) {
     padding-top: 244px;
   }
 `;
@@ -46,7 +46,7 @@ export const HomeMenu = styled.div`
     margin-top: 22%;
   }
 
-  @media (min-width: 2000px) {
+  @media (min-width: 1800px) {
     justify-content: space-around;
     height: 233px;
     margin-top: 30%;
@@ -82,7 +82,7 @@ export const MenuBtn = styled.button`
     width: 450px;
   }
 
-  @media (min-width: 2000px) {
+  @media (min-width: 1800px) {
     height: 50px;
     font-size: 20px;
     width: 550px;

@@ -12,7 +12,7 @@ export const LogoLightImg = styled.img`
     width: 384px;
   }
 
-  @media (min-width: 2000px) {
+  @media (min-width: 1800px) {
     width: 544px;
   }
 `;
