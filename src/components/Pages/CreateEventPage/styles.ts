@@ -321,15 +321,15 @@ export const ContainerButton = styled.div`
   padding: 43px 25px 0 0;
 
   @media (min-width: 700px) {
-    padding: 43px 0 13px;
+    padding: 43px 0px 13 0px;
   }
 
   @media (min-width: 1500px) {
-    padding: 84px 0 13px;
+    padding: 84px 0 13px 0px;
   }
 
   @media (min-width: 1800px) {
-    padding: 94px 0 13px;
+    padding: 94px 0 13px 0px;
   }
 `;
 
