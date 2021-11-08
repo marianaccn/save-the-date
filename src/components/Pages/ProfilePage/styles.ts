@@ -96,7 +96,7 @@ export const Input = styled.input`
   width: 293px;
   margin-right: 3%;
 
-  &placeholder {
+  ::placeholder {
     color: var(--black);
     font-family: 'Montserrat', sans-serif;
     font-size: 10px;
@@ -107,18 +107,30 @@ export const Input = styled.input`
     height: 25px;
     width: 393px;
     font-size: 11px;
+
+    ::placeholder {
+      font-size: 11px;
+    }
   }
 
   @media (min-width: 1500px) {
     height: 30px;
     width: 493px;
     font-size: 12px;
+
+    ::placeholder {
+      font-size: 12px;
+    }
   }
 
   @media (min-width: 1800px) {
     height: 35px;
     width: 593px;
     font-size: 13px;
+
+    ::placeholder {
+      font-size: 13px;
+    }
   }
 `;
 
