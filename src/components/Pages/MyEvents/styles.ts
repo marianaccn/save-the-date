@@ -135,6 +135,8 @@ export const DivEvento = styled.button`
 
   @media (min-width: 700px) {
     margin: 0 26px;
+    height: 77px;
+    width: 243px;
 
     h4 {
       font-size: 14px;
@@ -147,6 +149,8 @@ export const DivEvento = styled.button`
 
   @media (min-width: 1500px) {
     margin: 0 27px;
+    height: 79px;
+    width: 300px;
 
     h4 {
       font-size: 15px;
@@ -159,6 +163,8 @@ export const DivEvento = styled.button`
 
   @media (min-width: 1800px) {
     margin: 0 28px;
+    height: 82px;
+    width: 340px;
 
     h4 {
       font-size: 16px;
