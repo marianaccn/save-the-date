@@ -64,19 +64,19 @@ export function App() {
 
   const [items, setItems] = useState<any[]>([]);
 
-  const newItem = () => {
-    setItems([...items, data]);
-    setData({
-      ...data,
-      itemName: '',
-    });
-  };
+  // const newItem = () => {
+  //   setItems([...items, data]);
+  //   setData({
+  //     ...data,
+  //     itemName: '',
+  //   });
+  // };
 
-  const removeItem = (index: number) => {
-    const copyItem = [...items];
-    copyItem.splice(index, 1);
-    setItems(copyItem);
-  };
+  // const removeItem = (index: number) => {
+  //   const copyItem = [...items];
+  //   copyItem.splice(index, 1);
+  //   setItems(copyItem);
+  // };
 
   return (
     <IonApp>
