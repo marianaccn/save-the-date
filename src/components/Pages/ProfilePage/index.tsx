@@ -11,10 +11,10 @@ import {
   ContainerButton,
   CreateButton,
 } from './styles';
-import { LogoBlue } from '../../LogoBlue';
-import { EditItemBlue } from '../../EditItemBlue';
+import { LogoBlue } from '../../Icons/LogoBlue';
+import { EditItemBlue } from '../../Icons/EditItemBlue';
 import { useHistory } from 'react-router';
-import { PreviousBlack } from '../../PreviousBlack';
+import { PreviousBlack } from '../../Icons/PreviousBlack';
 import { IonContent } from '@ionic/react';
 import Swal from 'sweetalert2';
 

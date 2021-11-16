@@ -11,12 +11,12 @@ import {
   ContainerButton,
   CreateButton,
 } from './styles';
-import { LogoBlue } from '../../LogoBlue';
+import { LogoBlue } from '../../Icons/LogoBlue';
 import { useHistory } from 'react-router';
-import { PreviousBlack } from '../../PreviousBlack';
+import { PreviousBlack } from '../../Icons/PreviousBlack';
 import { IonContent } from '@ionic/react';
-import { CalendarIcon } from '../../CalendarIcon';
-import { ShareIcon } from '../../ShareIcon';
+import { CalendarIcon } from '../../Icons/CalendarIcon';
+import { ShareIcon } from '../../Icons/ShareIcon';
 import Swal from 'sweetalert2';
 
 export function MyEventsPage() {

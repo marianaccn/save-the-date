@@ -17,14 +17,14 @@ import {
   ContainerButton,
   CreateButton,
 } from './styles';
-import { LogoBlue } from '../../LogoBlue';
+import { LogoBlue } from '../../Icons/LogoBlue';
 import { useHistory } from 'react-router';
-import { PreviousBlack } from '../../PreviousBlack';
+import { PreviousBlack } from '../../Icons/PreviousBlack';
 import { IonContent } from '@ionic/react';
-import { CalendarIcon } from '../../CalendarIcon';
-import { EditItemBlack } from '../../EditItemBlack';
-import { TrashIcon } from '../../TrashIcon';
-import { AddItem } from '../../AddItem';
+import { CalendarIcon } from '../../Icons/CalendarIcon';
+import { EditItemBlack } from '../../Icons/EditItemBlack';
+import { TrashIcon } from '../../Icons/TrashIcon';
+import { AddItem } from '../../Icons/AddItem';
 
 export function DetailsEventPage() {
   const history = useHistory();

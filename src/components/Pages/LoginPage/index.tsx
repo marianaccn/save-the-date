@@ -1,5 +1,5 @@
-import { LogoLight } from '../../LogoLight';
-import { PreviousWhite } from '../../PreviousWhite';
+import { LogoLight } from '../../Icons/LogoLight';
+import { PreviousWhite } from '../../Icons/PreviousWhite';
 import {
   Container,
   ContainerButton,
