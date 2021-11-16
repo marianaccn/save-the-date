@@ -37,20 +37,20 @@ export function App() {
   const [data, setData] = useState<any>({
     adress: '',
     birthDate: '',
+    checkPassword: '',
     city: '',
-    closingTime: '',
     date: '',
     email: '',
     id: '',
     itemName: '',
     name: '',
-    startTime: '',
+    partyName: '',
+    password: '',
+    phone: '',
+    scheduleEvent: '',
     state: '',
     userId: '',
     userName: '',
-    phone: '',
-    password: '',
-    checkPassword: '',
   });
 
   const [disabled, setDisabled] = useState({
@@ -62,7 +62,7 @@ export function App() {
     password: true,
   });
 
-  const [items, setItems] = useState<any[]>([]);
+  // const [items, setItems] = useState<any[]>([]);
 
   // const newItem = () => {
   //   setItems([...items, data]);
@@ -109,7 +109,11 @@ export function App() {
               <DetailsEventPage />
             </Route>
             <Route exact path="/createEventPage">
-              <CreateEventPage />
+              <CreateEventPage
+                /* @ts-ignore */
+                data={data}
+                onDataChange={setData}
+              />
             </Route>
             <Route exact path="/myEventsPage">
               <MyEventsPage />

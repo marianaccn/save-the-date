@@ -24,9 +24,22 @@ import { PreviousBlack } from '../../PreviousBlack';
 import { IonContent } from '@ionic/react';
 import { CalendarIcon } from '../../CalendarIcon';
 import { AddItem } from '../../AddItem';
+import { eventValidator } from '../../../services/validations/eventValidator';
+import Swal from 'sweetalert2';
 
-export function CreateEventPage() {
+export const CreateEventPage: React.FC<any> = ({ data, onDataChange }) => {
   const history = useHistory();
+
+  console.log(data);
+
+  const submitNewEvent = () => {
+    if (!eventValidator(data, onDataChange)) {
+      return Swal.fire({
+        icon: 'success',
+        text: 'Evento criado com sucesso!',
+      });
+    }
+  };
 
   return (
     <IonContent>
@@ -44,28 +57,87 @@ export function CreateEventPage() {
                   <EventName
                     type="text"
                     placeholder="Insira aqui o nome do evento"
+                    name="eventName"
+                    value={data?.eventName || ''}
+                    onChange={(event: any) => {
+                      onDataChange({
+                        ...data,
+                        eventName: event.target.value,
+                      });
+                    }}
                   ></EventName>
                   <InputContainer>
-                    <Input type="text" placeholder="Nome" />
+                    <Input
+                      type="text"
+                      placeholder="Nome"
+                      name="hostName"
+                      value={data?.hostName || ''}
+                      onChange={(event: any) => {
+                        onDataChange({
+                          ...data,
+                          hostName: event.target.value,
+                        });
+                      }}
+                    />
                   </InputContainer>
 
                   <InputContainer>
-                    <Input type="text" placeholder="Rua, nº - bairro" />
+                    <Input
+                      type="text"
+                      placeholder="Rua, nº - bairro"
+                      name="adress"
+                      value={data?.adress || ''}
+                      onChange={(event: any) => {
+                        onDataChange({
+                          ...data,
+                          adress: event.target.value,
+                        });
+                      }}
+                    />
                   </InputContainer>
 
                   <InputContainer>
-                    <Input type="text" placeholder="Cidade - UF" />
+                    <Input
+                      type="text"
+                      placeholder="Cidade - UF"
+                      name="city"
+                      value={data?.city || ''}
+                      onChange={(event: any) => {
+                        onDataChange({
+                          ...data,
+                          city: event.target.value,
+                        });
+                      }}
+                    />
                   </InputContainer>
 
                   <InputContainer>
-                    <Input type="text" placeholder="Dia/Mês/Ano" />
+                    <Input
+                      type="text"
+                      placeholder="Dia/Mês/Ano"
+                      name="date"
+                      value={data?.date || ''}
+                      onChange={(event: any) => {
+                        onDataChange({
+                          ...data,
+                          date: event.target.value,
+                        });
+                      }}
+                    />
                   </InputContainer>
 
                   <InputContainer>
                     <Input
                       type="text"
                       placeholder="Horário de início e Término"
-                      disabled
+                      name="scheduleEvent"
+                      value={data?.scheduleEvent || ''}
+                      onChange={(event: any) => {
+                        onDataChange({
+                          ...data,
+                          scheduleEvent: event.target.value,
+                        });
+                      }}
                     />
                   </InputContainer>
 
@@ -75,15 +147,7 @@ export function CreateEventPage() {
                       <ItemNameContainer>
                         <h3>Nome</h3>
                         <InputItemsContainer>
-                          <InputItem
-                            type="text"
-                            placeholder="Coca-cola"
-                            disabled
-                          />
-                        </InputItemsContainer>
-
-                        <InputItemsContainer>
-                          <InputItem type="text" placeholder="Bolo" disabled />
+                          <InputItem type="text" placeholder="Nome do item" />
                         </InputItemsContainer>
 
                         <InputItemsContainer>
@@ -99,7 +163,7 @@ export function CreateEventPage() {
                     <ContainerButton>
                       <CreateButton
                         type="button"
-                        onClick={() => history.push('/')}
+                        onClick={() => submitNewEvent()}
                       >
                         Concluído
                       </CreateButton>
@@ -121,4 +185,4 @@ export function CreateEventPage() {
       </Container>
     </IonContent>
   );
-}
+};
