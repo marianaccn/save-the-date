@@ -31,7 +31,7 @@ export const CreateEventPage: React.FC<any> = (props) => {
   const history = useHistory();
 
   const submitNewEvent = () => {
-    if (!eventValidator(props.data, props.onDataChange)) {
+    if (!eventValidator(props.data, props.onDataChange, props.items)) {
       return Swal.fire({
         icon: 'success',
         text: 'Evento criado com sucesso!',
@@ -127,7 +127,7 @@ export const CreateEventPage: React.FC<any> = (props) => {
                   <InputContainer>
                     <Input
                       type="text"
-                      placeholder="Horário de início e Término"
+                      placeholder="00:00-00:00"
                       name="scheduleEvent"
                       value={props.data?.scheduleEvent || ''}
                       onChange={(event: any) => {
