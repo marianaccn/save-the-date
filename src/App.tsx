@@ -166,7 +166,12 @@ export function App() {
                   }}
                 />
               ) : (
-                <DetailsEventPage />
+                <DetailsEventPage
+                  data={data}
+                  onDataChange={setData}
+                  disabled={disabled}
+                  setDisabled={setDisabled}
+                />
               )}
             </Route>
             <Route exact path="/createEventPage">
