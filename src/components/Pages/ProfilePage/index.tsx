@@ -31,7 +31,6 @@ export function ProfilePage(props: any) {
       props.setDisabled({
         name: true,
         email: true,
-        senha: true,
         birthDate: true,
         phone: true,
         password: true,

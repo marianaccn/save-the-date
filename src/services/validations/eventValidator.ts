@@ -31,7 +31,6 @@ const scheduleValidation = (scheduleEvent: any): string => {
 };
 
 export const eventValidator = (data: any, submitNewEvent: Function) => {
-  console.log(data);
   const { partyName, hostName, adress, city, date, scheduleEvent } = data;
   let errors = [];
   let erro = '';

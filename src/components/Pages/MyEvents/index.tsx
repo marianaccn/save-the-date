@@ -44,7 +44,7 @@ export function MyEventsPage() {
                 <CalendarIcon />
                 <DivEvento
                   type="button"
-                  onClick={() => history.push('/detailsEventPage')}
+                  onClick={() => history.push('/detailsEventPage/1')}
                 >
                   <h4>Happy Hour</h4>
                   <p>02/12/2021 ás 10h</p>

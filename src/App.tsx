@@ -18,7 +18,7 @@ import { GlobalStyle } from './styles/global';
 import '@ionic/react/css/core.css';
 import { IonApp, IonContent, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { Route } from 'react-router';
+import { Redirect, Route } from 'react-router';
 import { HomePage } from './components/Pages/HomePage';
 import { LandingPage } from './components/Pages/LandingPage';
 import { LoginPage } from './components/Pages/LoginPage';
@@ -31,7 +31,8 @@ import { FriendsEventsPage } from './components/Pages/FriendsEventsPage';
 import { DetailsFriendsEvents } from './components/Pages/DetailsFriendsEvents';
 import { ResetPasswordPage } from './components/Pages/ResetPasswordPage';
 import { NewPasswordPage } from './components/Pages/NewPasswordPage';
-import { useState } from 'react';
+import { useState, Component } from 'react';
+import { getToken } from './services/api/config';
 
 export function App() {
   const [data, setData] = useState<any>({
@@ -62,21 +63,24 @@ export function App() {
     password: true,
   });
 
-  // const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<any[]>([]);
 
-  // const newItem = () => {
-  //   setItems([...items, data]);
-  //   setData({
-  //     ...data,
-  //     itemName: '',
-  //   });
-  // };
+  const addItem = () => {
+    setItems([...items, { itemName: '' }]);
+  };
 
-  // const removeItem = (index: number) => {
-  //   const copyItem = [...items];
-  //   copyItem.splice(index, 1);
-  //   setItems(copyItem);
-  // };
+  const editItem = (index: number, itemName: string) => {
+    const copyItem = [...items];
+    copyItem[index].itemName = itemName;
+    setItems(copyItem);
+  };
+
+  const removeItem = (index: number) => {
+    const copyItem = [...items];
+    copyItem.splice(index, 1);
+
+    setItems(copyItem);
+  };
 
   return (
     <IonApp>
@@ -89,37 +93,6 @@ export function App() {
                 data={data}
                 onDataChange={setData}
               />
-            </Route>
-            <Route exact path="/profilePage">
-              <ProfilePage
-                /* @ts-ignore */
-                data={data}
-                onDataChange={setData}
-                disabled={disabled}
-                setDisabled={setDisabled}
-              />
-            </Route>
-            <Route exact path="/detailsFriendsEventPage">
-              <DetailsFriendsEvents />
-            </Route>
-            <Route exact path="/friendsEventsPage">
-              <FriendsEventsPage />
-            </Route>
-            <Route exact path="/detailsEventPage">
-              <DetailsEventPage />
-            </Route>
-            <Route exact path="/createEventPage">
-              <CreateEventPage
-                /* @ts-ignore */
-                data={data}
-                onDataChange={setData}
-              />
-            </Route>
-            <Route exact path="/myEventsPage">
-              <MyEventsPage />
-            </Route>
-            <Route exact path="/homePage">
-              <HomePage />
             </Route>
             <Route exact path="/newPassword">
               <NewPasswordPage
@@ -144,6 +117,98 @@ export function App() {
             </Route>
             <Route exact path="/">
               <LandingPage />
+            </Route>
+
+            <Route exact path="/profilePage">
+              {!getToken() ? (
+                <Redirect
+                  to={{
+                    pathname: '/login',
+                  }}
+                />
+              ) : (
+                <ProfilePage
+                  /* @ts-ignore */
+                  data={data}
+                  onDataChange={setData}
+                  disabled={disabled}
+                  setDisabled={setDisabled}
+                />
+              )}
+            </Route>
+            <Route exact path="/detailsFriendsEventPage">
+              {!getToken() ? (
+                <Redirect
+                  to={{
+                    pathname: '/login',
+                  }}
+                />
+              ) : (
+                <DetailsFriendsEvents />
+              )}
+            </Route>
+            <Route exact path="/friendsEventsPage">
+              {!getToken() ? (
+                <Redirect
+                  to={{
+                    pathname: '/login',
+                  }}
+                />
+              ) : (
+                <FriendsEventsPage />
+              )}
+            </Route>
+            <Route exact path="/detailsEventPage/:id">
+              {!getToken() ? (
+                <Redirect
+                  to={{
+                    pathname: '/login',
+                  }}
+                />
+              ) : (
+                <DetailsEventPage />
+              )}
+            </Route>
+            <Route exact path="/createEventPage">
+              {!getToken() ? (
+                <Redirect
+                  to={{
+                    pathname: '/login',
+                  }}
+                />
+              ) : (
+                <CreateEventPage
+                  /* @ts-ignore */
+                  data={data}
+                  onDataChange={setData}
+                  addItem={addItem}
+                  items={items}
+                  removeItem={removeItem}
+                  editItem={editItem}
+                />
+              )}
+            </Route>
+            <Route exact path="/myEventsPage">
+              {!getToken() ? (
+                <Redirect
+                  to={{
+                    pathname: '/login',
+                  }}
+                />
+              ) : (
+                <MyEventsPage />
+              )}
+            </Route>
+            <Route exact path="/homePage">
+              {!getToken() ? (
+                <Redirect
+                  to={{
+                    pathname: '/login',
+                  }}
+                />
+              ) : (
+                <HomePage />
+              )}
             </Route>
           </IonRouterOutlet>
         </IonReactRouter>

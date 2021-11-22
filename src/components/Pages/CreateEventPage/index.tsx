@@ -11,8 +11,6 @@ import {
   Input,
   ItemsContainer,
   ItemNameContainer,
-  InputItemsContainer,
-  InputItem,
   AddItemButton,
   EventName,
   ContainerButton,
@@ -26,14 +24,14 @@ import { AddItem } from '../../Icons/AddItem';
 import { eventValidator } from '../../../services/validations/eventValidator';
 import Swal from 'sweetalert2';
 import { CalendarIcon } from '../../Icons/CalendarIcon';
+import { NewItem } from '../../NewItem';
+import { InputItemsContainer } from '../../NewItem/styles';
 
-export const CreateEventPage: React.FC<any> = ({ data, onDataChange }) => {
+export const CreateEventPage: React.FC<any> = (props) => {
   const history = useHistory();
 
-  console.log(data);
-
   const submitNewEvent = () => {
-    if (!eventValidator(data, onDataChange)) {
+    if (!eventValidator(props.data, props.onDataChange)) {
       return Swal.fire({
         icon: 'success',
         text: 'Evento criado com sucesso!',
@@ -58,11 +56,11 @@ export const CreateEventPage: React.FC<any> = ({ data, onDataChange }) => {
                     type="text"
                     placeholder="Insira aqui o nome do evento"
                     name="eventName"
-                    value={data?.eventName || ''}
+                    value={props.data?.partyName || ''}
                     onChange={(event: any) => {
-                      onDataChange({
-                        ...data,
-                        eventName: event.target.value,
+                      props.onDataChange({
+                        ...props.data,
+                        partyName: event.target.value,
                       });
                     }}
                   ></EventName>
@@ -71,10 +69,10 @@ export const CreateEventPage: React.FC<any> = ({ data, onDataChange }) => {
                       type="text"
                       placeholder="Nome"
                       name="hostName"
-                      value={data?.hostName || ''}
+                      value={props.data?.hostName || ''}
                       onChange={(event: any) => {
-                        onDataChange({
-                          ...data,
+                        props.onDataChange({
+                          ...props.data,
                           hostName: event.target.value,
                         });
                       }}
@@ -86,10 +84,10 @@ export const CreateEventPage: React.FC<any> = ({ data, onDataChange }) => {
                       type="text"
                       placeholder="Rua, nº - bairro"
                       name="adress"
-                      value={data?.adress || ''}
+                      value={props.data?.adress || ''}
                       onChange={(event: any) => {
-                        onDataChange({
-                          ...data,
+                        props.onDataChange({
+                          ...props.data,
                           adress: event.target.value,
                         });
                       }}
@@ -101,10 +99,10 @@ export const CreateEventPage: React.FC<any> = ({ data, onDataChange }) => {
                       type="text"
                       placeholder="Cidade - UF"
                       name="city"
-                      value={data?.city || ''}
+                      value={props.data?.city || ''}
                       onChange={(event: any) => {
-                        onDataChange({
-                          ...data,
+                        props.onDataChange({
+                          ...props.data,
                           city: event.target.value,
                         });
                       }}
@@ -116,10 +114,10 @@ export const CreateEventPage: React.FC<any> = ({ data, onDataChange }) => {
                       type="text"
                       placeholder="Dia/Mês/Ano"
                       name="date"
-                      value={data?.date || ''}
+                      value={props.data?.date || ''}
                       onChange={(event: any) => {
-                        onDataChange({
-                          ...data,
+                        props.onDataChange({
+                          ...props.data,
                           date: event.target.value,
                         });
                       }}
@@ -131,10 +129,10 @@ export const CreateEventPage: React.FC<any> = ({ data, onDataChange }) => {
                       type="text"
                       placeholder="Horário de início e Término"
                       name="scheduleEvent"
-                      value={data?.scheduleEvent || ''}
+                      value={props.data?.scheduleEvent || ''}
                       onChange={(event: any) => {
-                        onDataChange({
-                          ...data,
+                        props.onDataChange({
+                          ...props.data,
                           scheduleEvent: event.target.value,
                         });
                       }}
@@ -146,14 +144,19 @@ export const CreateEventPage: React.FC<any> = ({ data, onDataChange }) => {
                     <div className="inputs-container">
                       <ItemNameContainer>
                         <h3>Nome</h3>
-                        <InputItemsContainer>
-                          <InputItem type="text" placeholder="Nome do item" />
-                        </InputItemsContainer>
 
+                        {props.items.map((item: any, index: number) => (
+                          <NewItem
+                            item={item}
+                            index={index}
+                            removeItem={props.removeItem}
+                            editItem={props.editItem}
+                          />
+                        ))}
                         <InputItemsContainer>
                           <AddItemButton
                             type="button"
-                            onClick={() => history.push('/myEventsPage')}
+                            onClick={() => props.addItem()}
                           >
                             <AddItem />
                           </AddItemButton>
