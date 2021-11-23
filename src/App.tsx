@@ -174,7 +174,10 @@ export function App() {
                   }}
                 />
               ) : (
-                <FriendsEventsPage />
+                <FriendsEventsPage
+                  /* @ts-ignore */
+                  data={data}
+                />
               )}
             </Route>
             <Route exact path="/detailsEventPage/:id">
