@@ -163,7 +163,11 @@ export function App() {
                   }}
                 />
               ) : (
-                <DetailsFriendsEvents />
+                <DetailsFriendsEvents
+                  /* @ts-ignore */
+                  data={data}
+                  onDataChange={setData}
+                />
               )}
             </Route>
             <Route exact path="/friendsEventsPage">

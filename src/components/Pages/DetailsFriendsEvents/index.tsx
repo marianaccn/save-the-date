@@ -23,7 +23,7 @@ import { IonContent } from '@ionic/react';
 import { CalendarIcon } from '../../Icons/CalendarIcon';
 import { EditItemBlack } from '../../Icons/EditItemBlack';
 
-export function DetailsFriendsEvents() {
+export function DetailsFriendsEvents(props: any) {
   const history = useHistory();
 
   return (
@@ -39,11 +39,12 @@ export function DetailsFriendsEvents() {
               <ContainerElements>
                 <CalendarIcon />
                 <DivEvento>
-                  <h3>Churrasco</h3>
+                  <h3>{props.partyName}</h3>
                   <InputContainer>
                     <Input
                       type="text"
-                      placeholder="Mariana Cavalcante"
+                      value={props.hostName}
+                      placeholder="Nome do anfitrião"
                       disabled
                     />
                   </InputContainer>
@@ -51,21 +52,37 @@ export function DetailsFriendsEvents() {
                   <InputContainer>
                     <Input
                       type="text"
-                      placeholder="Rua Aparecida, 299 - Centro"
+                      placeholder="Rua, nº - Bairro"
+                      value={props.adress}
                       disabled
                     />
                   </InputContainer>
 
                   <InputContainer>
-                    <Input type="text" placeholder="Sorocaba - SP" disabled />
+                    <Input
+                      type="text"
+                      value={props.city}
+                      placeholder="Cidade-UF"
+                      disabled
+                    />
                   </InputContainer>
 
                   <InputContainer>
-                    <Input type="text" placeholder="02/12/2021" disabled />
+                    <Input
+                      type="text"
+                      value={props.date}
+                      placeholder="DD/MM/AAAA"
+                      disabled
+                    />
                   </InputContainer>
 
                   <InputContainer>
-                    <Input type="text" placeholder="10:00 - 15:00" disabled />
+                    <Input
+                      type="text"
+                      value={props.schedule}
+                      placeholder="00:00 - 00:00"
+                      disabled
+                    />
                   </InputContainer>
 
                   <ItemsContainer>
@@ -95,7 +112,7 @@ export function DetailsFriendsEvents() {
                         <InputItemsContainer>
                           <InputItem
                             type="text"
-                            placeholder="João Alves"
+                            placeholder="Convidado"
                             disabled
                           />
                         </InputItemsContainer>
