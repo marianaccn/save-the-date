@@ -11,11 +11,10 @@ import {
   Input,
   ItemsContainer,
   ItemNameContainer,
-  InputItemsContainer,
-  InputItem,
   AddItemButton,
   ContainerButton,
   CreateButton,
+  InputItemsContainer,
 } from './styles';
 import { LogoBlue } from '../../Icons/LogoBlue';
 import { useHistory } from 'react-router';
@@ -23,10 +22,10 @@ import { PreviousBlack } from '../../Icons/PreviousBlack';
 import { IonContent } from '@ionic/react';
 import { CalendarIcon } from '../../Icons/CalendarIcon';
 import { EditItemBlack } from '../../Icons/EditItemBlack';
-import { TrashIcon } from '../../Icons/TrashIcon';
 import { AddItem } from '../../Icons/AddItem';
 import Swal from 'sweetalert2';
 import { EditButton } from '../ProfilePage/styles';
+import NewItemEventPage from '../../NewItemEventPage';
 
 export function DetailsEventPage(props: any) {
   const history = useHistory();
@@ -218,37 +217,30 @@ export function DetailsEventPage(props: any) {
                     <div className="inputs-container">
                       <ItemNameContainer>
                         <h3>Nome</h3>
-                        <InputItemsContainer>
-                          <InputItem
-                            type="text"
-                            placeholder="Coca-cola"
-                            disabled
-                          />
-                        </InputItemsContainer>
-
-                        <InputItemsContainer>
-                          <AddItemButton
-                            type="button"
-                            onClick={() => history.push('/myEventsPage')}
-                          >
-                            <AddItem />
-                          </AddItemButton>
-                        </InputItemsContainer>
-                      </ItemNameContainer>
-
-                      <ItemNameContainer>
                         <h3>Responsável</h3>
-                        <InputItemsContainer>
-                          <InputItem type="text" placeholder="Huddy" disabled />
-                          <TrashIcon />
-                        </InputItemsContainer>
                       </ItemNameContainer>
+                      <InputItemsContainer>
+                        {props.items.map((item: any, index: number) => (
+                          <NewItemEventPage
+                            item={item}
+                            index={index}
+                            removeUserFromItem={props.removeUserFromItem}
+                            editItemName={props.editItemName}
+                            editUserFromItem={props.editUserFromItem}
+                          />
+                        ))}
+                      </InputItemsContainer>
+                      <InputItemsContainer>
+                        <AddItemButton
+                          type="button"
+                          onClick={() => props.addItem()}
+                        >
+                          <AddItem />
+                        </AddItemButton>
+                      </InputItemsContainer>
                     </div>
                     <ContainerButton>
-                      <CreateButton
-                        type="button"
-                        onClick={() => history.push('/')}
-                      >
+                      <CreateButton type="button" onClick={() => editEvent()}>
                         Concluído
                       </CreateButton>
                     </ContainerButton>

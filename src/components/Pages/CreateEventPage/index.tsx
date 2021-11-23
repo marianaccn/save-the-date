@@ -150,7 +150,7 @@ export const CreateEventPage: React.FC<any> = (props) => {
                             item={item}
                             index={index}
                             removeItem={props.removeItem}
-                            editItem={props.editItem}
+                            editItemName={props.editItemName}
                           />
                         ))}
                         <InputItemsContainer>
