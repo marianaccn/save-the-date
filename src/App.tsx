@@ -61,6 +61,7 @@ export function App() {
     birthDate: true,
     phone: true,
     password: true,
+    userName: true,
   });
 
   const [items, setItems] = useState<any[]>([]);
@@ -167,6 +168,12 @@ export function App() {
                   /* @ts-ignore */
                   data={data}
                   onDataChange={setData}
+                  disabled={disabled}
+                  setDisabled={setDisabled}
+                  addItem={addItem}
+                  items={items}
+                  editItemName={editItemName}
+                  editUserFromItem={editUserFromItem}
                 />
               )}
             </Route>

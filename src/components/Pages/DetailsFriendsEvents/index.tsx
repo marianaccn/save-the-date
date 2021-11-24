@@ -12,19 +12,40 @@ import {
   ItemsContainer,
   ItemNameContainer,
   InputItemsContainer,
-  InputItem,
   ContainerButton,
   CreateButton,
+  AddItemButton,
 } from './styles';
 import { LogoBlue } from '../../Icons/LogoBlue';
 import { useHistory } from 'react-router';
 import { PreviousBlack } from '../../Icons/PreviousBlack';
 import { IonContent } from '@ionic/react';
 import { CalendarIcon } from '../../Icons/CalendarIcon';
-import { EditItemBlack } from '../../Icons/EditItemBlack';
+import NewItemFriendsEvents from '../../NewItemFriendsEvents';
+import { AddItem } from '../../Icons/AddItem';
+import Swal from 'sweetalert2';
 
 export function DetailsFriendsEvents(props: any) {
   const history = useHistory();
+
+  const submitChanges = () => {
+    try {
+      Swal.fire({
+        icon: 'success',
+        text: 'Dados alterados!',
+      });
+
+      props.setDisabled({
+        userName: true,
+        itemName: true,
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Tente novamente!',
+      });
+    }
+  };
 
   return (
     <IonContent>
@@ -89,48 +110,35 @@ export function DetailsFriendsEvents(props: any) {
                     <h3>Itens</h3>
                     <div className="inputs-container">
                       <ItemNameContainer>
-                        <h4>Nome</h4>
-                        <InputItemsContainer>
-                          <InputItem
-                            type="text"
-                            placeholder="Linguiça"
-                            disabled
-                          />
-                        </InputItemsContainer>
-
-                        <InputItemsContainer>
-                          <InputItem
-                            type="text"
-                            placeholder="Refrigerante"
-                            disabled
-                          />
-                        </InputItemsContainer>
+                        <h3>Nome</h3>
+                        <h3>Responsável</h3>
                       </ItemNameContainer>
-
-                      <ItemNameContainer>
-                        <h4>Responsável</h4>
-                        <InputItemsContainer>
-                          <InputItem
-                            type="text"
-                            placeholder="Convidado"
-                            disabled
+                      <InputItemsContainer>
+                        {props.items.map((item: any, index: number) => (
+                          <NewItemFriendsEvents
+                            item={item}
+                            index={index}
+                            removeUserFromItem={props.removeUserFromItem}
+                            editItemName={props.editItemName}
+                            editUserFromItem={props.editUserFromItem}
+                            setDisabled={props.setDisabled}
+                            disabled={props.disabled}
                           />
-                        </InputItemsContainer>
-
-                        <InputItemsContainer>
-                          <InputItem
-                            type="text"
-                            placeholder="Sem responsável"
-                            disabled
-                          />
-                          <EditItemBlack />
-                        </InputItemsContainer>
-                      </ItemNameContainer>
+                        ))}
+                      </InputItemsContainer>
+                      <InputItemsContainer>
+                        <AddItemButton
+                          type="button"
+                          onClick={() => props.addItem()}
+                        >
+                          <AddItem />
+                        </AddItemButton>
+                      </InputItemsContainer>
                     </div>
                     <ContainerButton>
                       <CreateButton
                         type="button"
-                        onClick={() => history.push('/')}
+                        onClick={() => submitChanges()}
                       >
                         Salvar
                       </CreateButton>
