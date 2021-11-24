@@ -14,24 +14,23 @@ export const NewItemFriendsEvents: React.FC<any> = (props: any) => {
 
       <InputItem
         id="userName"
-        disabled={props.disabled.userName}
+        disabled
         type="select"
         placeholder="Convidado"
         name="userName"
         value={props.item?.userName || ''}
-        onChange={(event: any) => {
-          props.editUserFromItem(props.index, 1, event.target.value);
-        }}
       />
-      <div
-        onClick={() =>
-          props.setDisabled({ ...props.disabled, userName: false })
-        }
-      >
-        <label htmlFor="userName">
-          <EditItemBlack />
-        </label>
-      </div>
+      {!props.item?.userName && (
+        <div
+          onClick={() =>
+            props.editUserFromItem(props.index, 1, 'userName do usuário')
+          }
+        >
+          <label htmlFor="userName">
+            <EditItemBlack />
+          </label>
+        </div>
+      )}
     </InputContainer>
   );
 };
