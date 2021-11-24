@@ -13,9 +13,21 @@ import { useHistory } from 'react-router';
 import { PreviousBlack } from '../../Icons/PreviousBlack';
 import { IonContent } from '@ionic/react';
 import { PreviewMyEvents } from '../../PreviewMyEvents';
+import { useState, useEffect } from 'react';
+import { GetPartyList } from '../../../services/api/party';
+import { IPartyResponse } from '../../../services/interfaces/response/party';
 
 export function MyEventsPage() {
   const history = useHistory();
+  const [parties, setParties] = useState<IPartyResponse[]>([]);
+
+  useEffect(() => {
+    const fetchParties = async () => {
+      const response = await GetPartyList();
+      setParties(response);
+    };
+    fetchParties();
+  }, []);
 
   return (
     <IonContent>
@@ -27,7 +39,7 @@ export function MyEventsPage() {
               <h1>Meus eventos</h1>
             </div>
             <ContainerEvents>
-              <PreviewMyEvents />
+              <PreviewMyEvents parties={parties} />
               <ContainerButton>
                 <CreateButton
                   type="button"

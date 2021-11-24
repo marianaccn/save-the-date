@@ -2,35 +2,45 @@ import { ContainerElements, DivEvento, ShareButton } from './styles';
 import { useHistory } from 'react-router';
 import { CalendarIcon } from '../Icons/CalendarIcon';
 import { ShareIcon } from '../Icons/ShareIcon';
+import { env } from '../../constants';
 import Swal from 'sweetalert2';
 
 export function PreviewMyEvents(props: any) {
   const history = useHistory();
 
-  const shareButton = () => {
-    return Swal.fire({
+  const shareButton = async (partyName: string, partyId: number) => {
+    navigator.clipboard.writeText(
+      `${env.baseUrl}/${partyId}-${partyName.replace(/ /g, '-')}`
+    );
+    Swal.fire({
       icon: 'success',
-      text: 'Compartilhe seu evento através do link abaixo!',
-      html: '<a href="">Link</a>',
+      text: 'Link para o evento foi copiado com sucesso!',
     });
   };
 
   return (
-    <ContainerElements>
-      <CalendarIcon />
-      <DivEvento
-        type="button"
-        onClick={() => history.push('/detailsFriendsEventPage')}
-      >
-        <h4>{props.partyName}</h4>
-        <p>{props.hostName}</p>
-        <p>
-          {props.date} ás {props.schedule}
-        </p>
-      </DivEvento>
-      <ShareButton type="button" onClick={() => shareButton()}>
-        <ShareIcon />
-      </ShareButton>
-    </ContainerElements>
+    <>
+      {props.parties.map((party: any) => (
+        <ContainerElements>
+          <CalendarIcon />
+          <DivEvento
+            type="button"
+            onClick={() => history.push('/detailsFriendsEventPage')}
+          >
+            <h4>{party.partyName}</h4>
+            <p>{party.hostName}</p>
+            <p>
+              {party.date} ás {party.schedule}
+            </p>
+          </DivEvento>
+          <ShareButton
+            type="button"
+            onClick={() => shareButton(party.partyName, party.partyId)}
+          >
+            <ShareIcon />
+          </ShareButton>
+        </ContainerElements>
+      ))}
+    </>
   );
 }

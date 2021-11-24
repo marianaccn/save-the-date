@@ -15,7 +15,7 @@ export const NewItemFriendsEvents: React.FC<any> = (props: any) => {
       <InputItem
         id="userName"
         disabled
-        type="select"
+        type="text"
         placeholder="Convidado"
         name="userName"
         value={props.item?.userName || ''}
