@@ -16,17 +16,26 @@ import { PreviewMyEvents } from '../../PreviewMyEvents';
 import { useState, useEffect } from 'react';
 import { GetPartyList } from '../../../services/api/party';
 import { IPartyResponse } from '../../../services/interfaces/response/party';
+import Swal from 'sweetalert2';
 
 export function MyEventsPage() {
   const history = useHistory();
   const [parties, setParties] = useState<IPartyResponse[]>([]);
 
+  const fetchParties = async () => {
+    const response = await GetPartyList();
+    setParties(response);
+  };
+
   useEffect(() => {
-    const fetchParties = async () => {
-      const response = await GetPartyList();
-      setParties(response);
-    };
-    fetchParties();
+    try {
+      fetchParties();
+    } catch (err) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Nao foi possivel consultar seus eventos, tente novamente mais tarde.',
+      });
+    }
   }, []);
 
   return (
