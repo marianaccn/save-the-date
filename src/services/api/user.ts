@@ -56,12 +56,12 @@ export const CreateUser = async (profile: IUserDataRequest) => {
   // sessionStorage.setItem('users', JSON.stringify([...users, profile]));
 };
 
-export const ResetPassword = async (credentials: IResetPasswordRequest) => {
-  const init = fetchInit('POST', credentials);
-  await fetch(`${env.apiUrl}/${env.version}/user/`, init);
+export const ResetPassword = async (email: string) => {
+  const init = fetchInit('POST', { email });
+  await fetch(`${env.apiUrl}/${env.version}/user/passwordReset`, init);
 };
 
 export const NewPassword = async (credentials: INewPasswordRequest) => {
   const init = fetchInit('PUT', credentials);
-  await fetch(`${env.apiUrl}/${env.version}/user/`, init);
+  await fetch(`${env.apiUrl}/${env.version}/user/newPassword`, init);
 };

@@ -13,17 +13,26 @@ import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { PreviousWhite } from '../../Icons/PreviousWhite';
 import { ProfileIcon } from '../../Icons/ProfileIcon';
+import { ResetPassword } from '../../../services/api/user';
+import { useState } from 'react';
 
 export function ResetPasswordPage() {
   const history = useHistory();
+  const [email, setEmail] = useState('');
 
-  const submitResetPassword = () => {
-    Swal.fire({
-      icon: 'success',
-      text: 'Verifique a caixa de entrada do seu e-mail para redefinir sua senha',
-    });
-
-    history.push('/login');
+  const submitResetPassword = async () => {
+    try {
+      await ResetPassword(email);
+      Swal.fire({
+        icon: 'success',
+        text: 'Verifique a caixa de entrada do seu e-mail para redefinir sua senha',
+      }).then(() => history.push('/login'));
+    } catch (err) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Email nao registrado',
+      });
+    }
   };
 
   return (
@@ -35,15 +44,21 @@ export function ResetPasswordPage() {
             <h1 className="title">Esqueceu sua senha?</h1>
             <p className="description">
               Nos informe seu e-mail de cadastro abaixo
+              <br />
+              para que possamos enviar um link para
+              <br /> redefinição
             </p>
-            <p className="description">
-              para que possamos enviar um link para{' '}
-            </p>
-            <p className="description">redefinição</p>
+            <p className="description"></p>
+            <p className="description"></p>
           </Title>
         </Header>
         <MenuLogin>
-          <InputForm type="text" placeholder="E-mail"></InputForm>
+          <InputForm
+            value={email}
+            type="text"
+            placeholder="E-mail"
+            onChange={(e) => setEmail(e.target.value)}
+          ></InputForm>
         </MenuLogin>
         <ConcludedButton type="button" onClick={() => submitResetPassword()}>
           Enviar

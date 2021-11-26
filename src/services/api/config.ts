@@ -17,6 +17,6 @@ export const fetchInit = (method: string, body?: any): RequestInit => {
     mode: 'cors',
   };
   if (token) Object.assign(init, { Authorization: `Bearer ${token}` });
-  if (body) Object.assign(init, { body });
+  if (body) Object.assign(init, { body: JSON.stringify(body) });
   return init;
 };
