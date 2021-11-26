@@ -17,12 +17,33 @@ import { useHistory } from 'react-router';
 import { PreviousBlack } from '../../Icons/PreviousBlack';
 import { IonContent } from '@ionic/react';
 import Swal from 'sweetalert2';
+import { CreateUser, GetUserByEmail } from '../../../services/api/user';
+import { useEffect } from 'react';
+import { getUser } from '../../../services/api/config';
 
 export function ProfilePage(props: any, data: any, onDataChange: any) {
   const history = useHistory();
+  const getUserInfo = async () => {
+    const user = JSON.parse(getUser());
+    props.onDataChange({ ...user });
+  };
 
-  const submitDataProfile = () => {
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  const submitDataProfile = async () => {
     try {
+      const profile = {
+        name: props.data.name,
+        email: props.data.email,
+        birthDate: props.data.birthDate,
+        phone: props.data.phone,
+        password: props.data.password,
+      };
+      await CreateUser(profile);
+      await GetUserByEmail(props.data.email);
+      await getUserInfo();
       Swal.fire({
         icon: 'success',
         text: 'Dados alterados!',

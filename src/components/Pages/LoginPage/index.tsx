@@ -26,10 +26,8 @@ export function LoginPage(props: any) {
         email,
         password,
       };
-      console.log('login');
 
-      const user = await Login(credentials);
-      console.log(user);
+      await Login(credentials);
       props.onDataChange({ email: '', password: '' });
       history.push('/homePage');
     } catch (err) {

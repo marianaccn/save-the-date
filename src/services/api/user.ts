@@ -1,5 +1,5 @@
 import { env } from '../../constants';
-import { fetchInit, setToken } from './config';
+import { fetchInit, setToken, setUser } from './config';
 import { ILoginRequest } from '../interfaces/request/login';
 import { IUserDataRequest } from '../interfaces/request/userData';
 import { INewPasswordRequest } from '../interfaces/request/newPassword';
@@ -14,8 +14,10 @@ export const GetUserByEmail = async (
     `${env.apiUrl}/${env.version}/user/email/${email}`,
     init
   );
-  const parsedResponse = await response.json();
-  return parsedResponse;
+  const user = await response.json();
+  if (!user) throw new Error('Credenciais invalido');
+  setUser(JSON.stringify(user));
+  return user;
 };
 
 export const GetUserList = async (): Promise<IUserDataResponse[]> => {
@@ -31,7 +33,7 @@ export const Login = async (credentials: ILoginRequest) => {
   const parsedResponse = await response.json();
   if (!parsedResponse.token) throw new Error('Credenciais invalido');
   setToken(parsedResponse.token);
-  return parsedResponse;
+  await GetUserByEmail(credentials.email);
   // const users = JSON.parse(sessionStorage.getItem('users') || '[]');
   // const profile = users.filter(
   //   (user: any) =>
