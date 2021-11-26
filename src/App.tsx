@@ -54,6 +54,27 @@ export function App() {
     userName: '',
   });
 
+  const resetData = () => {
+    setData({
+      adress: '',
+      birthDate: '',
+      checkPassword: '',
+      city: '',
+      date: '',
+      email: '',
+      id: '',
+      itemName: '',
+      name: '',
+      partyName: '',
+      password: '',
+      phone: '',
+      scheduleEvent: '',
+      state: '',
+      userId: '',
+      userName: '',
+    });
+  };
+
   const [disabled, setDisabled] = useState({
     name: true,
     email: true,
@@ -112,6 +133,7 @@ export function App() {
                 /* @ts-ignore */
                 data={data}
                 onDataChange={setData}
+                resetData={resetData}
               />
             </Route>
             <Route exact path="/newPassword">
@@ -119,6 +141,7 @@ export function App() {
                 /* @ts-ignore */
                 data={data}
                 onDataChange={setData}
+                resetData={resetData}
               />
             </Route>
             <Route exact path="/resetPassword">
@@ -126,6 +149,7 @@ export function App() {
                 /* @ts-ignore */
                 data={data}
                 onDataChange={setData}
+                resetData={resetData}
               />
             </Route>
             <Route exact path="/login">
@@ -133,6 +157,7 @@ export function App() {
                 /* @ts-ignore */
                 data={data}
                 onDataChange={setData}
+                resetData={resetData}
               />
             </Route>
             <Route exact path="/">

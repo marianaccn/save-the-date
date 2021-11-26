@@ -13,15 +13,31 @@ import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { ProfileIcon } from '../../Icons/ProfileIcon';
 import { userValidator } from '../../../services/validations/userValidator';
+import { CreateUser } from '../../../services/api/user';
 
-export const RegistrationPage: React.FC<any> = ({ data, onDataChange }) => {
+export const RegistrationPage: React.FC<any> = ({
+  data,
+  onDataChange,
+  resetData,
+}) => {
   const history = useHistory();
 
-  const submitRegistration = () => {
-    if (!userValidator(data, onDataChange)) {
-      return Swal.fire({
-        icon: 'success',
-        text: 'Cadastro concluído',
+  const submitRegistration = async () => {
+    try {
+      if (!userValidator(data, onDataChange)) {
+        await CreateUser(data);
+        resetData();
+        Swal.fire({
+          icon: 'success',
+          text: 'Cadastro concluído',
+        }).then(() => {
+          history.push('/login');
+        });
+      }
+    } catch (err) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Nao foi possivel realizar seu cadastro',
       });
     }
   };

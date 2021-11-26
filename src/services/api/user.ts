@@ -4,7 +4,6 @@ import { ILoginRequest } from '../interfaces/request/login';
 import { IUserDataRequest } from '../interfaces/request/userData';
 import { INewPasswordRequest } from '../interfaces/request/newPassword';
 import { IResetPasswordRequest } from '../interfaces/request/resetPassword';
-import { ILoginResponse } from '../interfaces/response/login';
 import { IUserDataResponse } from '../interfaces/response/userData';
 
 export const GetUserByEmail = async (
@@ -26,14 +25,21 @@ export const GetUserList = async (): Promise<IUserDataResponse[]> => {
   return parsedResponse;
 };
 
-export const Login = async (
-  credentials: ILoginRequest
-): Promise<ILoginResponse> => {
+export const Login = async (credentials: ILoginRequest) => {
   const init = fetchInit('POST', credentials);
   const response = await fetch(`${env.apiUrl}/${env.version}/user/login`, init);
   const parsedResponse = await response.json();
+  if (!parsedResponse.token) throw new Error('Credenciais invalido');
   setToken(parsedResponse.token);
   return parsedResponse;
+  // const users = JSON.parse(sessionStorage.getItem('users') || '[]');
+  // const profile = users.filter(
+  //   (user: any) =>
+  //     user.email === credentials.email && user.password === credentials.password
+  // )[0];
+  // if (!profile) throw new Error('Credenciais invalidas');
+  // const token = JSON.stringify(profile);
+  // setToken(token);
 };
 
 export const DeleteUserByEmail = async (email: string) => {
@@ -41,9 +47,13 @@ export const DeleteUserByEmail = async (email: string) => {
   await fetch(`${env.apiUrl}/${env.version}/user/email/${email}`, init);
 };
 
-export const CreateUser = async (user: IUserDataRequest) => {
-  const init = fetchInit('POST', user);
+export const CreateUser = async (profile: IUserDataRequest) => {
+  const init = fetchInit('POST', profile);
   await fetch(`${env.apiUrl}/${env.version}/user/`, init);
+  // const users = JSON.parse(sessionStorage.getItem('users') || '[]');
+  // const user = users.filter((user: any) => user.email === profile.email)[0];
+  // if (user) throw new Error('Email ja cadastrado');
+  // sessionStorage.setItem('users', JSON.stringify([...users, profile]));
 };
 
 export const ResetPassword = async (credentials: IResetPasswordRequest) => {
