@@ -18,12 +18,13 @@ class Party {
   };
 
   static ReadParty = async (id: string) => {
+    console.log(id);
     const partyDoc = doc(fireStore, `party/${id}`);
     const snap = await getDoc(partyDoc);
     if (snap.exists()) {
       return snap.data();
     }
-    throw new Error('Usuario nao encontrado');
+    throw new Error('Festa nao encontrada');
   };
 
   static UpdateParty = async (party: any) => {

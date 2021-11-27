@@ -10,7 +10,10 @@ export function PreviewMyEvents(props: any) {
 
   const shareButton = async (partyName: string, partyId: number) => {
     navigator.clipboard.writeText(
-      `${env.baseUrl}/${partyId}-${partyName.replace(/ /g, '-')}`
+      `${env.baseUrl}/detailsFriendsEventPage/${partyId}-${partyName.replace(
+        / /g,
+        '-'
+      )}`
     );
     Swal.fire({
       icon: 'success',
@@ -27,7 +30,7 @@ export function PreviewMyEvents(props: any) {
             type="button"
             onClick={() =>
               history.push(
-                `/detailsFriendsEventPage/${party.id}-${party.partyName.replace(
+                `/detailsEventPage/${party.id}-${party.partyName.replace(
                   / /g,
                   '-'
                 )}`

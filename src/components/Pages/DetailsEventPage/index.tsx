@@ -26,12 +26,50 @@ import { AddItem } from '../../Icons/AddItem';
 import Swal from 'sweetalert2';
 import { EditButton } from '../ProfilePage/styles';
 import NewItemEventPage from '../../NewItemEventPage';
+import { useEffect } from 'react';
+import { GetPartyById, EditParty } from '../../../services/api/party';
 
 export function DetailsEventPage(props: any) {
   const history = useHistory();
 
-  const editEvent = () => {
+  const fetchParty = async () => {
     try {
+      const event = window.location.href.replace('https://', '').split('/')[4];
+      const id = event.split('-')[0];
+      const party = await GetPartyById(id);
+      props.onDataChange({
+        ...props.data,
+        ...party,
+      });
+      props.setItems(party.items || []);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Festa nao encontrada',
+      }).then(() => {
+        history.push('/myEventsPage');
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchParty();
+  }, []);
+
+  const editEvent = async () => {
+    try {
+      const event = window.location.href.replace('https://', '').split('/')[4];
+      const id = event.split('-')[0];
+      EditParty({
+        id,
+        hostName: props.data.hostName,
+        partyName: props.data.partyName,
+        adress: props.data.adress,
+        city: props.data.city,
+        date: props.data.date,
+        scheduleEvent: props.data.scheduleEvent,
+        items: props.items,
+      });
       Swal.fire({
         icon: 'success',
         text: 'Dados alterados!',
@@ -66,7 +104,7 @@ export function DetailsEventPage(props: any) {
               <ContainerElements>
                 <CalendarIcon />
                 <DivEvento>
-                  <h3>Happy Hour</h3>
+                  <h3>{props?.data?.partyName}</h3>
                   <InputContainer>
                     <Input
                       id="changeName"
@@ -187,14 +225,14 @@ export function DetailsEventPage(props: any) {
                     <Input
                       id="changeSchedule"
                       type="text"
-                      disabled={props.disabled.schedule}
+                      disabled={props.disabled.scheduleEvent}
                       placeholder="Horário de início/término"
                       name="schedule"
-                      value={props?.data?.schedule || ''}
+                      value={props?.data?.scheduleEvent || ''}
                       onChange={(event: any) => {
                         props.onDataChange({
                           ...props.data,
-                          schedule: event.target.value,
+                          scheduleEvent: event.target.value,
                         });
                       }}
                     />

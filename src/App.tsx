@@ -199,6 +199,7 @@ export function App() {
                   items={items}
                   editItemName={editItemName}
                   editUserFromItem={editUserFromItem}
+                  setItems={setItems}
                 />
               )}
             </Route>
@@ -234,6 +235,7 @@ export function App() {
                   removeUserFromItem={removeUserFromItem}
                   editItemName={editItemName}
                   editUserFromItem={editUserFromItem}
+                  setItems={setItems}
                 />
               )}
             </Route>

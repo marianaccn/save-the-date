@@ -56,7 +56,7 @@ class User {
     snaps.forEach((snap) => {
       const content = snap.data();
       const id = snap.id;
-      data.push({ id, ...content });
+      data = { id, ...content };
     });
     return data;
   };

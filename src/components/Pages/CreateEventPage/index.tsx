@@ -41,7 +41,7 @@ export const CreateEventPage: React.FC<any> = (props) => {
           city: props.data.city,
           date: props.data.date,
           scheduleEvent: props.data.scheduleEvent,
-          itemName: props.items,
+          items: props.items,
         });
         return Swal.fire({
           icon: 'success',

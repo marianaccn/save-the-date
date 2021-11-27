@@ -14,14 +14,15 @@ export const DeletePartyById = async (id: string): Promise<IPartyResponse> => {
   return parsedResponse;
 };
 
-export const GetPartyById = async (id: string): Promise<IPartyResponse> => {
-  const init = fetchInit('GET');
-  const response = await fetch(
-    `${env.apiUrl}/${env.version}/party/${id}`,
-    init
-  );
-  const parsedResponse = await response.json();
-  return parsedResponse;
+export const GetPartyById = async (id: string) => {
+  // const init = fetchInit('GET');
+  // const response = await fetch(
+  //   `${env.apiUrl}/${env.version}/party/${id}`,
+  //   init
+  // );
+  // const parsedResponse = await response.json();
+  // return parsedResponse;
+  return await PartyDB.ReadParty(id);
 };
 
 export const GetPartyList = async () => {
@@ -38,4 +39,12 @@ export const CreateParty = async (party: any) => {
   // const parsedResponse = await response.json();
   // return parsedResponse;
   return await PartyDB.CreateParty(party);
+};
+
+export const EditParty = async (party: any) => {
+  // const init = fetchInit('PUT', party);
+  // const response = await fetch(`${env.apiUrl}/${env.version}/party`, init);
+  // const parsedResponse = await response.json();
+  // return parsedResponse;
+  return await PartyDB.UpdateParty(party);
 };
