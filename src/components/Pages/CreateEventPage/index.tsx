@@ -26,15 +26,32 @@ import Swal from 'sweetalert2';
 import { CalendarIcon } from '../../Icons/CalendarIcon';
 import { NewItem } from '../../NewItem';
 import { InputItemsContainer } from '../../NewItem/styles';
+import { CreateParty } from '../../../services/api/party';
 
 export const CreateEventPage: React.FC<any> = (props) => {
   const history = useHistory();
 
   const submitNewEvent = () => {
-    if (!eventValidator(props.data, props.onDataChange, props.items)) {
+    try {
+      if (!eventValidator(props.data, props.onDataChange, props.items)) {
+        CreateParty({
+          hostName: props.data.hostName,
+          partyName: props.data.partyName,
+          adress: props.data.adress,
+          city: props.data.city,
+          date: props.data.date,
+          scheduleEvent: props.data.scheduleEvent,
+          itemName: props.items,
+        });
+        return Swal.fire({
+          icon: 'success',
+          text: 'Evento criado com sucesso!',
+        });
+      }
+    } catch (err) {
       return Swal.fire({
-        icon: 'success',
-        text: 'Evento criado com sucesso!',
+        icon: 'error',
+        text: 'Ocorreu uma falha na criacao do evento',
       });
     }
   };

@@ -55,7 +55,7 @@ export function LoginPage(props: any) {
             }}
           />
           <LoginInput
-            type="text"
+            type="password"
             placeholder="Senha"
             name="password"
             value={props?.data?.password || ''}
@@ -67,12 +67,12 @@ export function LoginPage(props: any) {
             }}
           />
         </HomeMenu>
-        <ResetPassword
+        {/* <ResetPassword
           type="button"
           onClick={() => history.push('/resetPassword')}
         >
           <p>Esqueceu sua senha? Clique aqui!</p>
-        </ResetPassword>
+        </ResetPassword> */}
         <ContainerButton>
           <ConcludedButton type="button" onClick={login}>
             Entrar

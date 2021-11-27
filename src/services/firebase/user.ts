@@ -22,8 +22,9 @@ class User {
   static ReadUser = async (id: string) => {
     const userDoc = doc(fireStore, `user/${id}`);
     const snap = await getDoc(userDoc);
+    const content = snap.data();
     if (!snap.exists()) throw new Error('Usuario nao encontrado');
-    return snap.data();
+    return { id, ...content };
   };
 
   static UpdateUser = async (user: any) => {
@@ -39,7 +40,11 @@ class User {
   static ListUsers = async (params?: any[]) => {
     const data: any[] = [];
     const snaps = await getDocs(query(userColection));
-    snaps.forEach((snap) => data.push(snap.data()));
+    snaps.forEach((snap) => {
+      const content = snap.data();
+      const id = snap.id;
+      data.push({ id, ...content });
+    });
     return data;
   };
 
@@ -48,7 +53,11 @@ class User {
     const snaps = await getDocs(
       query(userColection, where('email', '==', email), limit(1))
     );
-    snaps.forEach((snap) => (data = snap.data()));
+    snaps.forEach((snap) => {
+      const content = snap.data();
+      const id = snap.id;
+      data.push({ id, ...content });
+    });
     return data;
   };
 }

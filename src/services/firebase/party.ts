@@ -37,8 +37,14 @@ class Party {
   };
 
   static ListPartys = async () => {
+    const data: any[] = [];
     const snaps = await getDocs(query(partyColection));
-    return snaps.forEach((snap) => snap.data());
+    snaps.forEach((snap) => {
+      const content = snap.data();
+      const id = snap.id;
+      data.push({ id, ...content });
+    });
+    return data;
   };
 }
 

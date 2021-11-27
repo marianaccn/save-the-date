@@ -181,7 +181,7 @@ export function App() {
                 />
               )}
             </Route>
-            <Route exact path="/detailsFriendsEventPage">
+            <Route exact path="/detailsFriendsEventPage/:id">
               {!getToken() ? (
                 <Redirect
                   to={{

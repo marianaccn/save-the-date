@@ -25,17 +25,24 @@ export function PreviewMyEvents(props: any) {
           <CalendarIcon />
           <DivEvento
             type="button"
-            onClick={() => history.push('/detailsFriendsEventPage')}
+            onClick={() =>
+              history.push(
+                `/detailsFriendsEventPage/${party.id}-${party.partyName.replace(
+                  / /g,
+                  '-'
+                )}`
+              )
+            }
           >
             <h4>{party.partyName}</h4>
             <p>{party.hostName}</p>
             <p>
-              {party.date} ás {party.schedule}
+              {party.date} ás {party.scheduleEvent}
             </p>
           </DivEvento>
           <ShareButton
             type="button"
-            onClick={() => shareButton(party.partyName, party.partyId)}
+            onClick={() => shareButton(party.partyName, party.id)}
           >
             <ShareIcon />
           </ShareButton>
