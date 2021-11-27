@@ -25,7 +25,13 @@ export const RegistrationPage: React.FC<any> = ({
   const submitRegistration = async () => {
     try {
       if (!userValidator(data, onDataChange)) {
-        await CreateUser(data);
+        await CreateUser({
+          name: data.name,
+          email: data.email,
+          birthDate: data.birthDate,
+          password: data.password,
+          phone: data.phone,
+        });
         resetData();
         Swal.fire({
           icon: 'success',

@@ -3,8 +3,9 @@ import { fetchInit, setToken, setUser } from './config';
 import { ILoginRequest } from '../interfaces/request/login';
 import { IUserDataRequest } from '../interfaces/request/userData';
 import { INewPasswordRequest } from '../interfaces/request/newPassword';
-import { IResetPasswordRequest } from '../interfaces/request/resetPassword';
+// import { IResetPasswordRequest } from '../interfaces/request/resetPassword';
 import { IUserDataResponse } from '../interfaces/response/userData';
+import UserDB from '../firebase/user';
 
 export const GetUserByEmail = async (
   email: string
@@ -28,20 +29,17 @@ export const GetUserList = async (): Promise<IUserDataResponse[]> => {
 };
 
 export const Login = async (credentials: ILoginRequest) => {
-  const init = fetchInit('POST', credentials);
-  const response = await fetch(`${env.apiUrl}/${env.version}/user/login`, init);
-  const parsedResponse = await response.json();
-  if (!parsedResponse.token) throw new Error('Credenciais invalido');
-  setToken(parsedResponse.token);
-  await GetUserByEmail(credentials.email);
-  // const users = JSON.parse(sessionStorage.getItem('users') || '[]');
-  // const profile = users.filter(
-  //   (user: any) =>
-  //     user.email === credentials.email && user.password === credentials.password
-  // )[0];
-  // if (!profile) throw new Error('Credenciais invalidas');
-  // const token = JSON.stringify(profile);
-  // setToken(token);
+  // const init = fetchInit('POST', credentials);
+  // const response = await fetch(`${env.apiUrl}/${env.version}/user/login`, init);
+  // const parsedResponse = await response.json();
+  // if (!parsedResponse.token) throw new Error('Credenciais invalido');
+  // setToken(parsedResponse.token);
+  // await GetUserByEmail(credentials.email);
+  const user = await UserDB.GetUserByEmail(credentials.email);
+  if (!user || user.password !== credentials.password)
+    throw new Error('Credenciais invalidas');
+  const token = JSON.stringify(user);
+  setToken(token);
 };
 
 export const DeleteUserByEmail = async (email: string) => {
@@ -50,12 +48,11 @@ export const DeleteUserByEmail = async (email: string) => {
 };
 
 export const CreateUser = async (profile: IUserDataRequest) => {
-  const init = fetchInit('POST', profile);
-  await fetch(`${env.apiUrl}/${env.version}/user/`, init);
-  // const users = JSON.parse(sessionStorage.getItem('users') || '[]');
-  // const user = users.filter((user: any) => user.email === profile.email)[0];
-  // if (user) throw new Error('Email ja cadastrado');
-  // sessionStorage.setItem('users', JSON.stringify([...users, profile]));
+  // const init = fetchInit('POST', profile);
+  // await fetch(`${env.apiUrl}/${env.version}/user/`, init);
+  const user = await UserDB.GetUserByEmail(profile.email);
+  if (user) throw new Error('Email ja cadastrado');
+  await UserDB.CreateUser(profile);
 };
 
 export const ResetPassword = async (email: string) => {
