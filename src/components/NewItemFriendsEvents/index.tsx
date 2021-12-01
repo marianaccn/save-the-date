@@ -23,7 +23,7 @@ export const NewItemFriendsEvents: React.FC<any> = (props: any) => {
       {!props.item?.userName && (
         <div
           onClick={() =>
-            props.editUserFromItem(props.index, 1, 'userName do usuário')
+            props.editUserFromItem(props.index, props.userId, props.userName)
           }
         >
           <label htmlFor="userName">

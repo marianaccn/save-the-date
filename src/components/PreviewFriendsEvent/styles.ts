@@ -6,10 +6,10 @@ export const ContainerElements = styled.div`
   flex-direction: row;
   width: 100%;
   justify-content: center;
+  margin: 10px;
 
   @media (min-width: 700px) {
     justify-content: center;
-    margin: 0 10px;
   }
 `;
 

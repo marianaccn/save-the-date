@@ -25,12 +25,20 @@ export const GetPartyById = async (id: string) => {
   return await PartyDB.ReadParty(id);
 };
 
-export const GetPartyList = async () => {
+export const GetMyPartyList = async (id: string) => {
   // const init = fetchInit('GET');
   // const response = await fetch(`${env.apiUrl}/${env.version}/party/list`, init);
   // const parsedResponse = await response.json();
   // return parsedResponse;
-  return await PartyDB.ListPartys();
+  return await PartyDB.ListPartysByUserId(id);
+};
+
+export const GetFriendsPartyList = async (id: string) => {
+  // const init = fetchInit('GET');
+  // const response = await fetch(`${env.apiUrl}/${env.version}/party/list`, init);
+  // const parsedResponse = await response.json();
+  // return parsedResponse;
+  return await PartyDB.ListFriendsPartys(id);
 };
 
 export const CreateParty = async (party: any) => {

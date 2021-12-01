@@ -22,27 +22,63 @@ import { PreviousBlack } from '../../Icons/PreviousBlack';
 import { IonContent } from '@ionic/react';
 import { CalendarIcon } from '../../Icons/CalendarIcon';
 import NewItemFriendsEvents from '../../NewItemFriendsEvents';
-import { AddItem } from '../../Icons/AddItem';
+// import { AddItem } from '../../Icons/AddItem';
 import Swal from 'sweetalert2';
+import { EditParty, GetPartyById } from '../../../services/api/party';
+import { useEffect } from 'react';
+import { getToken } from '../../../services/api/config';
 
 export function DetailsFriendsEvents(props: any) {
   const history = useHistory();
+  const user = JSON.parse(getToken());
 
-  const submitChanges = () => {
+  const fetchParty = async () => {
     try {
+      const event = window.location.href.split('/')[4];
+      const id = event.split('-')[0];
+      const party = await GetPartyById(id);
+      props.onDataChange({
+        ...props.data,
+        ...party,
+      });
+      props.setItems(party.items || []);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Festa nao encontrada',
+      }).then(() => {
+        history.push('/friendsEventsPage');
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchParty();
+  }, []);
+
+  const editEvent = async () => {
+    try {
+      const event = window.location.href.split('/')[4];
+      const id = event.split('-')[0];
+      EditParty({
+        id,
+        hostId: props.data.hostId,
+        hostName: props.data.hostName,
+        partyName: props.data.partyName,
+        adress: props.data.adress,
+        city: props.data.city,
+        date: props.data.date,
+        scheduleEvent: props.data.scheduleEvent,
+        items: props.items,
+      });
       Swal.fire({
         icon: 'success',
         text: 'Dados alterados!',
       });
-
-      props.setDisabled({
-        userName: true,
-        itemName: true,
-      });
-    } catch (error) {
+    } catch (error: any) {
       Swal.fire({
         icon: 'error',
-        text: 'Tente novamente!',
+        text: error.message,
       });
     }
   };
@@ -60,11 +96,11 @@ export function DetailsFriendsEvents(props: any) {
               <ContainerElements>
                 <CalendarIcon />
                 <DivEvento>
-                  <h3>{props.partyName}</h3>
+                  <h3>{props.data.partyName}</h3>
                   <InputContainer>
                     <Input
                       type="text"
-                      value={props.hostName}
+                      value={props.data.hostName}
                       placeholder="Nome do anfitrião"
                       disabled
                     />
@@ -74,7 +110,7 @@ export function DetailsFriendsEvents(props: any) {
                     <Input
                       type="text"
                       placeholder="Rua, nº - Bairro"
-                      value={props.adress}
+                      value={props.data.adress}
                       disabled
                     />
                   </InputContainer>
@@ -82,7 +118,7 @@ export function DetailsFriendsEvents(props: any) {
                   <InputContainer>
                     <Input
                       type="text"
-                      value={props.city}
+                      value={props.data.city}
                       placeholder="Cidade-UF"
                       disabled
                     />
@@ -91,7 +127,7 @@ export function DetailsFriendsEvents(props: any) {
                   <InputContainer>
                     <Input
                       type="text"
-                      value={props.date}
+                      value={props.data.date}
                       placeholder="DD/MM/AAAA"
                       disabled
                     />
@@ -100,7 +136,7 @@ export function DetailsFriendsEvents(props: any) {
                   <InputContainer>
                     <Input
                       type="text"
-                      value={props.schedule}
+                      value={props.data.scheduleEvent}
                       placeholder="00:00 - 00:00"
                       disabled
                     />
@@ -123,23 +159,22 @@ export function DetailsFriendsEvents(props: any) {
                             editUserFromItem={props.editUserFromItem}
                             setDisabled={props.setDisabled}
                             disabled={props.disabled}
+                            userId={user.id}
+                            userName={user.name}
                           />
                         ))}
                       </InputItemsContainer>
-                      <InputItemsContainer>
+                      {/* <InputItemsContainer>
                         <AddItemButton
                           type="button"
                           onClick={() => props.addItem()}
                         >
                           <AddItem />
                         </AddItemButton>
-                      </InputItemsContainer>
+                      </InputItemsContainer> */}
                     </div>
                     <ContainerButton>
-                      <CreateButton
-                        type="button"
-                        onClick={() => submitChanges()}
-                      >
+                      <CreateButton type="button" onClick={() => editEvent()}>
                         Salvar
                       </CreateButton>
                     </ContainerButton>
@@ -151,7 +186,7 @@ export function DetailsFriendsEvents(props: any) {
           <Footer>
             <PreviousButton
               type="button"
-              onClick={() => history.push('/myEventsPage')}
+              onClick={() => history.push('/friendsEventsPage')}
             >
               <PreviousBlack />
             </PreviousButton>

@@ -14,16 +14,18 @@ import { PreviousBlack } from '../../Icons/PreviousBlack';
 import { IonContent } from '@ionic/react';
 import { PreviewMyEvents } from '../../PreviewMyEvents';
 import { useState, useEffect } from 'react';
-import { GetPartyList } from '../../../services/api/party';
+import { GetMyPartyList } from '../../../services/api/party';
 import { IPartyResponse } from '../../../services/interfaces/response/party';
 import Swal from 'sweetalert2';
+import { getToken } from '../../../services/api/config';
 
 export function MyEventsPage() {
   const history = useHistory();
   const [parties, setParties] = useState<IPartyResponse[]>([]);
 
   const fetchParties = async () => {
-    const response = await GetPartyList();
+    const user = JSON.parse(getToken());
+    const response = await GetMyPartyList(user.id);
     setParties(response);
   };
 

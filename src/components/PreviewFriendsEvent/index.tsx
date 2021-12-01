@@ -6,18 +6,29 @@ export function PreviewFriendsEvents(props: any) {
   const history = useHistory();
 
   return (
-    <ContainerElements>
-      <CalendarIcon />
-      <DivEvento
-        type="button"
-        onClick={() => history.push('/detailsFriendsEventPage')}
-      >
-        <h4>{props.partyName}</h4>
-        <p>{props.hostName}</p>
-        <p>
-          {props.date} ás {props.schedule}
-        </p>
-      </DivEvento>
-    </ContainerElements>
+    <>
+      {props.parties.map((party: any) => (
+        <ContainerElements>
+          <CalendarIcon />
+          <DivEvento
+            type="button"
+            onClick={() =>
+              history.push(
+                `/detailsFriendsEventPage/${party.id}-${party.partyName.replace(
+                  / /g,
+                  '-'
+                )}`
+              )
+            }
+          >
+            <h4>{party.partyName}</h4>
+            <p>{party.hostName}</p>
+            <p>
+              {party.date} ás {party.scheduleEvent}
+            </p>
+          </DivEvento>
+        </ContainerElements>
+      ))}
+    </>
   );
 }

@@ -27,6 +27,7 @@ import { CalendarIcon } from '../../Icons/CalendarIcon';
 import { NewItem } from '../../NewItem';
 import { InputItemsContainer } from '../../NewItem/styles';
 import { CreateParty } from '../../../services/api/party';
+import { getToken } from '../../../services/api/config';
 
 export const CreateEventPage: React.FC<any> = (props) => {
   const history = useHistory();
@@ -34,7 +35,9 @@ export const CreateEventPage: React.FC<any> = (props) => {
   const submitNewEvent = () => {
     try {
       if (!eventValidator(props.data, props.onDataChange, props.items)) {
+        const user = JSON.parse(getToken());
         CreateParty({
+          hostId: user.id,
           hostName: props.data.hostName,
           partyName: props.data.partyName,
           adress: props.data.adress,
@@ -46,6 +49,8 @@ export const CreateEventPage: React.FC<any> = (props) => {
         return Swal.fire({
           icon: 'success',
           text: 'Evento criado com sucesso!',
+        }).then(() => {
+          history.push('/myEventsPage');
         });
       }
     } catch (err) {

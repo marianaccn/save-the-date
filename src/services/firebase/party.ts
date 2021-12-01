@@ -7,6 +7,7 @@ import {
   getDocs,
   deleteDoc,
   query,
+  where,
 } from 'firebase/firestore';
 import { fireStore } from './index';
 
@@ -24,7 +25,7 @@ class Party {
     if (snap.exists()) {
       return snap.data();
     }
-    throw new Error('Festa nao encontrada');
+    throw new Error('Festa nao encontrada dentro de nosso banco');
   };
 
   static UpdateParty = async (party: any) => {
@@ -40,6 +41,32 @@ class Party {
   static ListPartys = async () => {
     const data: any[] = [];
     const snaps = await getDocs(query(partyColection));
+    snaps.forEach((snap) => {
+      const content = snap.data();
+      const id = snap.id;
+      data.push({ id, ...content });
+    });
+    return data;
+  };
+
+  static ListPartysByUserId = async (id: string) => {
+    const data: any[] = [];
+    const snaps = await getDocs(
+      query(partyColection, where('hostId', '==', id))
+    );
+    snaps.forEach((snap) => {
+      const content = snap.data();
+      const id = snap.id;
+      data.push({ id, ...content });
+    });
+    return data;
+  };
+
+  static ListFriendsPartys = async (id: string) => {
+    const data: any[] = [];
+    const snaps = await getDocs(
+      query(partyColection, where('hostId', '!=', id))
+    );
     snaps.forEach((snap) => {
       const content = snap.data();
       const id = snap.id;

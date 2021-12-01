@@ -28,13 +28,14 @@ import { EditButton } from '../ProfilePage/styles';
 import NewItemEventPage from '../../NewItemEventPage';
 import { useEffect } from 'react';
 import { GetPartyById, EditParty } from '../../../services/api/party';
+import { getToken } from '../../../services/api/config';
 
 export function DetailsEventPage(props: any) {
   const history = useHistory();
 
   const fetchParty = async () => {
     try {
-      const event = window.location.href.replace('https://', '').split('/')[4];
+      const event = window.location.href.split('/')[4];
       const id = event.split('-')[0];
       const party = await GetPartyById(id);
       props.onDataChange({
@@ -42,10 +43,10 @@ export function DetailsEventPage(props: any) {
         ...party,
       });
       props.setItems(party.items || []);
-    } catch (error) {
+    } catch (error: any) {
       Swal.fire({
         icon: 'error',
-        text: 'Festa nao encontrada',
+        text: error.message,
       }).then(() => {
         history.push('/myEventsPage');
       });
@@ -58,10 +59,12 @@ export function DetailsEventPage(props: any) {
 
   const editEvent = async () => {
     try {
-      const event = window.location.href.replace('https://', '').split('/')[4];
+      const user = JSON.parse(getToken());
+      const event = window.location.href.split('/')[4];
       const id = event.split('-')[0];
       EditParty({
         id,
+        hostId: user.id,
         hostName: props.data.hostName,
         partyName: props.data.partyName,
         adress: props.data.adress,
@@ -83,10 +86,11 @@ export function DetailsEventPage(props: any) {
         scheduleEvent: true,
         itemName: true,
       });
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error);
       Swal.fire({
         icon: 'error',
-        text: 'Tente novamente!',
+        text: error.message,
       });
     }
   };

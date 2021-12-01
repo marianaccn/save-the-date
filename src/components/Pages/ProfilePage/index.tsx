@@ -17,15 +17,17 @@ import { useHistory } from 'react-router';
 import { PreviousBlack } from '../../Icons/PreviousBlack';
 import { IonContent } from '@ionic/react';
 import Swal from 'sweetalert2';
-import { CreateUser, GetUserByEmail } from '../../../services/api/user';
+import { EditUser, GetUserByEmail } from '../../../services/api/user';
 import { useEffect } from 'react';
-import { getUser } from '../../../services/api/config';
+import { getToken } from '../../../services/api/config';
 
 export function ProfilePage(props: any, data: any, onDataChange: any) {
   const history = useHistory();
+  const user = JSON.parse(getToken());
+
   const getUserInfo = async () => {
-    const user = JSON.parse(getUser());
-    props.onDataChange({ ...user });
+    const profile = await GetUserByEmail(props.data.email || user.email);
+    props.onDataChange({ ...profile });
   };
 
   useEffect(() => {
@@ -35,14 +37,14 @@ export function ProfilePage(props: any, data: any, onDataChange: any) {
   const submitDataProfile = async () => {
     try {
       const profile = {
+        id: user.id,
         name: props.data.name,
         email: props.data.email,
         birthDate: props.data.birthDate,
         phone: props.data.phone,
         password: props.data.password,
       };
-      await CreateUser(profile);
-      await GetUserByEmail(props.data.email);
+      await EditUser(profile);
       await getUserInfo();
       Swal.fire({
         icon: 'success',
@@ -56,10 +58,10 @@ export function ProfilePage(props: any, data: any, onDataChange: any) {
         phone: true,
         password: true,
       });
-    } catch (error) {
+    } catch (error: any) {
       Swal.fire({
         icon: 'error',
-        text: 'Tente novamente!',
+        text: error.message,
       });
     }
   };
